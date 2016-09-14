@@ -12,7 +12,85 @@
   <body>
 
     <div class="container">
-      Logged in as <strong>{{context.username}}</strong>
+      <div class="row">
+        Logged in as <strong>{{context.username}}</strong>
+      </div>
+        <div class="row">
+          <div class="col-sm-7">
+            <table class="table table-sm">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                  </th>
+                  <th>
+                    Date
+                  </th>
+                  <th>
+                    Time
+                  </th>
+                  <th>
+                    Duration (m:s)
+                  </th>
+                  <th>
+                    Distance (km)
+                  </th>
+                  <th>
+                    Elevation (m)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for activity in context.activities %}
+                <tr>
+                  <td class="{% if activity.this_week %} table-success {% endif %}"></td>
+                  <td class="{% if activity.within_last_seven %} table-info {% endif %}"></td>
+                  <td>{{activity.date}}</td>
+                  <td>{{activity.time}}</td>
+                  <td>{{activity.duration}}</td>
+                  <td>{{activity.distance}}</td>
+                  <td>{{activity.elevation}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-sm-5">
+            <table class="table table-sm">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    Duration (m:s)
+                  </th>
+                  <th>
+                    Distance (km)
+                  </th>
+                  <th>
+                    Elevation (m)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-info">Last 7 Days</td>
+                  <td>{{ context.last_seven.duration }}</td>
+                  <td>{{ context.last_seven.distance }}</td>
+                  <td>{{ context.last_seven.elevation }}</td>
+                </tr>
+                <tr>
+                  <td class="table-success">This Week</td>
+                  <td>{{ context.this_week.duration }}</td>
+                  <td>{{ context.this_week.distance }}</td>
+                  <td>{{ context.this_week.elevation }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
