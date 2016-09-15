@@ -13,10 +13,74 @@
 
     <div class="container">
       <div class="row">
-        Logged in as <strong>{{context.username}}</strong>
+        <div class="col-sm-8">
+          <h1>My Strava Log</h1>
+        </div>
+        <div class="col-sm-4">
+          <p class="pull-right">
+            Logged in as <strong>{{context.username}}</strong>
+          </p>
+        </div>
       </div>
-        <div class="row">
-          <div class="col-sm-7">
+
+      <div class="row">
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">Weekly Stats</h4>
+            <select id="fetch_weeks" class="form-control">
+              <option value="1" {% if context.fetch_weeks == 1 %} selected {% endif %}>Show All From Last Week</option>
+              <option value="2" {% if context.fetch_weeks == 2 %} selected {% endif %}>Show All From Last 2 Weeks</option>
+              <option value="3" {% if context.fetch_weeks == 3 %} selected {% endif %}>Show All From Last 3 Weeks</option>
+              <option value="4" {% if context.fetch_weeks == 4 %} selected {% endif %}>Show All From Last 4 Weeks</option>
+            </select>
+            <select id="week_starts_on" class="form-control">
+              <option value="5" {% if context.week_starts_on == 5 %} selected {% endif %}>Week Starts On Saturday</option>
+              <option value="6" {% if context.week_starts_on == 6 %} selected {% endif %}>Week Starts On Sunday</option>
+              <option value="0" {% if context.week_starts_on == 0 %} selected {% endif %}>Week Starts On Monday</option>
+              <option value="1" {% if context.week_starts_on == 1 %} selected {% endif %}>Week Starts On Tuesday</option>
+              <option value="2" {% if context.week_starts_on == 2 %} selected {% endif %}>Week Starts On Wednesday</option>
+              <option value="3" {% if context.week_starts_on == 3 %} selected {% endif %}>Week Starts On Thursday</option>
+              <option value="4" {% if context.week_starts_on == 4 %} selected {% endif %}>Week Starts On Friday</option>
+            </select>
+            <table class="table table-sm">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    Duration (m:s)
+                  </th>
+                  <th>
+                    Distance (km)
+                  </th>
+                  <th>
+                    Elevation (m)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-info">Last {{ context.fetch_weeks }} Weeks</td>
+                  <td>{{ context.stats.duration }}</td>
+                  <td>{{ context.stats.distance }}</td>
+                  <td>{{ context.stats.elevation }}</td>
+                </tr>
+                <tr>
+                  <td class="table-success">This Week</td>
+                  <td>{{ context.this_week.duration }}</td>
+                  <td>{{ context.this_week.distance }}</td>
+                  <td>{{ context.this_week.elevation }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">Recent Runs</h4>
             <table class="table table-sm">
               <thead class="thead-inverse">
                 <tr>
@@ -56,43 +120,26 @@
               </tbody>
             </table>
           </div>
-
-          <div class="col-sm-5">
-            <table class="table table-sm">
-              <thead class="thead-inverse">
-                <tr>
-                  <th>
-                  </th>
-                  <th>
-                    Duration (m:s)
-                  </th>
-                  <th>
-                    Distance (km)
-                  </th>
-                  <th>
-                    Elevation (m)
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="table-info">Last 7 Days</td>
-                  <td>{{ context.last_seven.duration }}</td>
-                  <td>{{ context.last_seven.distance }}</td>
-                  <td>{{ context.last_seven.elevation }}</td>
-                </tr>
-                <tr>
-                  <td class="table-success">This Week</td>
-                  <td>{{ context.this_week.duration }}</td>
-                  <td>{{ context.this_week.distance }}</td>
-                  <td>{{ context.this_week.elevation }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
+      </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script>
+      function reload() {
+        window.location.href =
+          "http://" +
+          window.location.host +
+          window.location.pathname +
+          '?fetch_weeks=' + $('#fetch_weeks')[0].value +
+          '&week_starts_on=' + $('#week_starts_on')[0].value;
+      }
+
+      $('#fetch_weeks, #week_starts_on').on('change', function() {
+        reload();
+      });
+    </script>
   </body>
 </html>
