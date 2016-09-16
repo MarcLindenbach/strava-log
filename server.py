@@ -9,12 +9,13 @@ import time
 app = Flask(__name__)
 
 try:
-    from settings import STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, APP_SECRET_KEY
+    from settings import STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, APP_SECRET_KEY, URL_ROOT
     app.secret_key = APP_SECRET_KEY
 except ImportError:
     STRAVA_CLIENT_ID = 0
     STRAVA_CLIENT_SECRET = ''
     app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+    URL_ROOT = request.url_root
 
 STRAVA_REDIRECT_PATH = 'token-exchange'
 STRAVA_RESPONSE_TYPE = 'code'
@@ -38,7 +39,7 @@ def parse_distance(d):
 def index():
     strava_request_access_url = 'https://www.strava.com/oauth/authorize'
     strava_request_access_url+= '?client_id=%s' % STRAVA_CLIENT_ID
-    strava_request_access_url+= '&redirect_uri=%s' % (request.url_root + STRAVA_REDIRECT_PATH)
+    strava_request_access_url+= '&redirect_uri=%s' % (URL_ROOT + STRAVA_REDIRECT_PATH)
     strava_request_access_url+= '&response_type=%s' % STRAVA_RESPONSE_TYPE
     return render_template('index.html', strava_request_access_url=strava_request_access_url)
 
