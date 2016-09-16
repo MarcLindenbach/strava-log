@@ -23,7 +23,7 @@ def get_date(date_string):
     return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
 
 def parse_date(date_string):
-    return datetime.strftime(get_date(date_string), '%Y-%m-%d')
+    return datetime.strftime(get_date(date_string), '%a	%m-%d')
 
 def parse_time(date_string):
     return datetime.strftime(get_date(date_string), '%I:%M %p')
