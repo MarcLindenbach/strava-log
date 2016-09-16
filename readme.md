@@ -9,3 +9,6 @@ My Strava Log
  - Requirements are in requirements.txt
  - Requires a settings.py file with the following: `STRAVA_CLIENT_SECRET`,
    `STRAVA_CLIENT_ID`, `APP_SECRET_KEY`
+
+## Example
+[Click Here](http://strava.lindenbach.ca) to see it live.
