@@ -56,6 +56,9 @@
                   <th>
                     Elevation (m)
                   </th>
+                  <th>
+                    Runs
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -64,12 +67,14 @@
                   <td>{{ context.stats.duration }}</td>
                   <td>{{ context.stats.distance }}</td>
                   <td>{{ context.stats.elevation }}</td>
+                  <td>{{ context.stats.total }}</td>
                 </tr>
                 <tr>
                   <td class="table-success">This Week</td>
                   <td>{{ context.this_week.duration }}</td>
                   <td>{{ context.this_week.distance }}</td>
                   <td>{{ context.this_week.elevation }}</td>
+                  <td>{{ context.this_week.total }}</td>
                 </tr>
               </tbody>
             </table>

@@ -108,6 +108,7 @@ def log():
         'duration': parse_duration(sum(activity['elapsed_time'] for activity in activities)),
         'distance': parse_distance(sum(activity['distance_raw'] for activity in activities)),
         'elevation': '%.2f' % sum(activity['elevation'] for activity in activities),
+        'total': len(activities),
     }
 
     this_week_activities = [activity for activity in activities if activity['this_week']]
@@ -116,6 +117,7 @@ def log():
         'duration': parse_duration(sum(activity['elapsed_time'] for activity in this_week_activities)),
         'distance': parse_distance(sum(activity['distance_raw'] for activity in this_week_activities)),
         'elevation': '%.2f' % sum(activity['elevation'] for activity in this_week_activities),
+        'total': len(this_week_activities),
     }
 
     context = {
